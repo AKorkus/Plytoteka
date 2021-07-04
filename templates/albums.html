@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Tu tworzymy albumy i widzimy listę</title>
+    <style>
+        table,
+        th,
+        tr,
+        td {
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<h2>Lista albumów</h2>
+
+<table>
+    <thead>
+        <th>Tytuł</th>
+        <th>Wykonawca</th>
+        <th>Rok</th>
+        <th>Gatunek</th>
+    </thead>
+    {% for album in albums %}
+    <tr>
+        <td><a href="/albums/{{ loop.index }}">{{ album.title }}</a></td>
+        <td>{{ album.by }}</td>
+        <td>{{ album.year }}</td>
+        <td>{{ album.genre }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<div>
+    <h2> Dodaj nowy album: </h2>
+    <form method="POST" action="/albums/" enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <tr>
+                <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Go">
+
+                <label for="img">Obrazek</label>
+                <input type="file" name="file">
+                <input type="submit" value="upload">
+    </form>
+</div>
+</body>
+
+</html>

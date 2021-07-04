@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły albumu</title>
+</head>
+
+<body>
+    {{cover}}
+    <img src ="{{ url_for('static', filename='uploads/{{ cover }}') }}">
+    <h2> Zmień: </h2>
+    <form method="POST" action="/albums/{{ album_id }}/" enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <tr>
+                <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Go">
+
+        <label for="img">Obrazek</label>
+        <input type="file" name="file">
+        <input type="submit" value="upload">
+    </form>
+
+</body>
+
+</html>

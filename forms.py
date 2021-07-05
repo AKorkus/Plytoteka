@@ -1,11 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.fields.simple import FileField
+from wtforms import StringField, TextAreaField, FloatField, IntegerField
 from wtforms.validators import DataRequired
 
 
-class AlbumForm(FlaskForm):
+class ExpensesForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
-    by = StringField('by', validators=[DataRequired()])
-    year = StringField('year', validators=[DataRequired()])
-    genre = StringField('genre', validators=[DataRequired()])
+    description = TextAreaField('description')
+    cathegory = StringField('cathegory', validators=[DataRequired()])
+    amount = FloatField('amount', validators=[DataRequired()])
+    month = IntegerField('month', validators=[DataRequired()])

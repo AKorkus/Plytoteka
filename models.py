@@ -1,34 +1,43 @@
 import json
 
 
-class Albums:
+class Expenses:
     def __init__(self):
         try:
-            with open("albums.json", "r") as f:
-                self.albums = json.load(f)
+            with open("expenses.json", "r") as f:
+                self.expenses = json.load(f)
         except FileNotFoundError:
-            self.albums = []
+            self.expenses = []
+            '''
+        self.sum = 0
+        for i in self.expenses:
+            self.sum += self.expenses[i]["amount"]
+            '''
 
     def all(self):
-        return self.albums
+        return self.expenses
 
     def get(self, id):
-        return self.albums[id]
+        return self.expenses[id]
 
-    def create(self, data, filename):
+    def create(self, data):
         data.pop('csrf_token')
-        data['cover'] = filename
-        self.albums.append(data)
+        self.expenses.append(data)
 
     def save_all(self):
-        with open("albums.json", "w") as f:
-            json.dump(self.albums, f)
+        with open("expenses.json", "w") as f:
+            json.dump(self.expenses, f)
 
-    def update(self, id, data, filename):
+    def update(self, id, data):
         data.pop('csrf_token')
-        data['cover'] = filename
-        self.albums[id] = data
+        self.expenses[id] = data
         self.save_all()
 
+    def suma(self):
+        summa = 0
+        for i in self.expenses:
+            summa += i["amount"]
+        return summa
 
-albums = Albums()
+
+expenses = Expenses()

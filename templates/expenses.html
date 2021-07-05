@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Expenses list</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+    <div class="Kontent">
+<h2>Expenses list</h2>
+
+<table>
+    <thead>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Cathegory</th>
+        <th>Amount</th>
+        <th>Month</th>
+    </thead>
+    {% for expense in expenses %}
+    <tr>
+        <td><a href="/expenses/{{ loop.index }}">{{ expense.title }}</a></td>
+        <td>{{ expense.description }}</td>
+        <td>{{ expense.cathegory }}</td>
+        <td>{{ expense.amount }}</td>
+        <td>{{ expense.month }}</td>
+    </tr>
+    {% endfor %}
+</table>
+
+<table>
+    <thead>
+        <th>Total</th>
+    </thead>
+    <tr>
+        <td>
+            {{ sum }}
+        </td>
+    </tr>
+</table>
+</div>
+<div class="Add">
+    <h2> Add Expense: </h2>
+    <form method="POST" action="/expenses/" enctype=multipart/form-data>
+        {{ form.hidden_tag() }}
+        <table>
+            {% for field in form if field.widget.input_type != 'hidden' %}
+            <tr>
+                <th>{{ field.label }} {% if field.flags.required %}*{% endif %}</th>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <input type="submit" value="Go" class="Buton">
+
+    </form>
+</div>
+</body>
+
+</html>
